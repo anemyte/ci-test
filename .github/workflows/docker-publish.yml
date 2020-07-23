@@ -4,8 +4,6 @@ on:
   push:
     paths: 
       - do-build/
-    paths-ignore:
-      - dont-build/
    
     # Publish `master` as Docker `latest` image.
     branches:
