@@ -2,6 +2,7 @@ name: Docker
 
 on:
   push:
+    # yolo
     paths: 
       - trigger_files/foo/*
 
