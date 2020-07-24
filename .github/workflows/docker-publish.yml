@@ -3,7 +3,6 @@ name: Docker
 on:
   push:
     paths: 
-      - Dockerfile
       - trigger_files/foo/*
 
 env:
