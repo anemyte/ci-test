@@ -4,13 +4,7 @@ on:
   push:
     paths: 
       - Dockerfile
-   
-    # Publish `master` as Docker `latest` image.
-    branches:
-      - master
-    # Publish `v1.2.3` tags as releases.
-    tags:
-      - v*
+      - trigger_files/*
 
 env:
   IMAGE_NAME: hello-world
@@ -40,7 +34,7 @@ jobs:
     needs: test
 
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && github.ref == 'master'
 
     steps:
       - uses: actions/checkout@v2
