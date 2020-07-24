@@ -27,6 +27,8 @@ jobs:
             docker build . --file Dockerfile
           fi
 
+          echo "${{ github.ref }}"
+
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
   push:
