@@ -4,7 +4,7 @@ on:
   push:
     paths: 
       - Dockerfile
-      - trigger_files/*
+      - trigger_files/foo/*
 
 env:
   IMAGE_NAME: hello-world
