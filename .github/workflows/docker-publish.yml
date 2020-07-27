@@ -1,9 +1,12 @@
 name: Docker
 
 on:
+  pull_request:
+    paths:
+      - trigger_files/foo/*
+
   push:
-    # yolo
-    paths: 
+    paths:
       - trigger_files/foo/*
 
 env:
@@ -12,28 +15,29 @@ env:
 jobs:
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-  test:
+  test_push:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
 
     steps:
       - uses: actions/checkout@v2
-
       - name: Run tests
         run: |
-          if [ -f docker-compose.test.yml ]; then
-            docker-compose --file docker-compose.test.yml build
-            docker-compose --file docker-compose.test.yml run sut
-          else
-            docker build . --file Dockerfile
-          fi
+          docker build . --file Dockerfile
 
-          echo "${{ github.ref }}"
+  test_pr:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
 
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: |
+          docker build . --file Dockerfile
+
   push:
     # Ensure test job passes before pushing image.
-    needs: test
+    needs: test_push
 
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
