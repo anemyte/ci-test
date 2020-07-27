@@ -15,29 +15,23 @@ env:
 jobs:
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-  test_push:
+  test:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
 
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
         run: |
-          docker build . --file Dockerfile
+          # 'on:' section sucks. Really, why is it so useless?
 
-  test_pr:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run tests
-        run: |
-          docker build . --file Dockerfile
+          # check
+          if [ '${{ github.ref }}' = 'refs/heads/master'] || [ '${{ github.event_name }}' = 'pull_request' ]; then
+            docker build . --file Dockerfile
+          fi
 
   push:
     # Ensure test job passes before pushing image.
-    needs: test_push
+    needs: test
 
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
@@ -58,14 +52,7 @@ jobs:
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
+          VERSION=latest
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
