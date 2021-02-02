@@ -15,4 +15,4 @@ jobs:
           echo 'Hello, world!'
       - name: In Any Case
         run: |
-          echo ${{ toJson(github.event) }}
+          echo ${{ github.action }}
