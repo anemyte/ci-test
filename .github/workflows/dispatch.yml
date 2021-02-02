@@ -6,10 +6,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Print Payload
-        if: github.event.event_type == 'print'
+        if: github.event_type == 'print'
         run: |
           echo '${{ toJson(github.event.client_payload) }}'
       - name: Say Hello
-        if: github.event.event_type == 'hello'
+        if: github.event_type == 'hello'
         run: |
           echo 'Hello, world!'
