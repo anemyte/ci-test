@@ -15,5 +15,5 @@ jobs:
           echo 'Hello, world!'
       - name: In Any Case
         run: |
-          echo ${{ github.event_type }}
-          echo ${{ github.event.event_type }}
+          echo ${{ github.event.type }}
+          echo ${{ github.event }}
