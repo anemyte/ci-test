@@ -9,6 +9,7 @@ jobs:
         if: github.event.action == 'print'
         run: |
           echo '${{ toJson(github.event.client_payload) }}'
+          echo ${{ github.event.client_payload.tag }}
       - name: Say Hello
         if: github.event.action == 'hello'
         run: |
