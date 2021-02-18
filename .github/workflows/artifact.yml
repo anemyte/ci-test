@@ -15,6 +15,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: /tmp/artifact
           asset_name: artifact
-          tag: refs/tags/test
+          tag: master
           overwrite: true
           body: "This is my release text"
