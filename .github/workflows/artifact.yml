@@ -1,0 +1,21 @@
+on: repository_dispatch
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'artifact'
+    # curl -X POST -H "Authorization: token ${TOKEN}" -H "Accept: application/vnd.github.everest-preview+json" https://api.github.com/repos/anemyte/ci-test/dispatches --data '{"event_type":"test","client_payload":{"msg":"Hello, world!"}}'
+    steps:
+      - uses: actions/checkout@v2
+      - name: produce artifact
+        run: |
+          date > /tmp/artifact
+      - name: upload
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: artifact
+        with:
+          upload_url: https://uploads.github.com/repos/anemyte/ci-test/releases/38211586/assets{?name,label}
+          asset_path: /tmp/artifact
+          asset_name: artifact
+          asset_content_type: text/plain
