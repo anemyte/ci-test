@@ -13,7 +13,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        id: artifact
         with:
           upload_url: https://uploads.github.com/repos/anemyte/ci-test/releases/38211586/assets{?name,label}
           asset_path: /tmp/artifact
