@@ -9,6 +9,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Find Current Pull Request
         uses: jwalton/gh-find-current-pr@v1.0.2
+        with:
+          github-token: ${{github.token}}
         id: PR
       - name: Run tests
         env:
