@@ -17,7 +17,6 @@ jobs:
           PR_TITLE: ${{ steps.PR.outputs.title }}
           PR_NUM: ${{ steps.PR.outputs.number }}
         run: |
-          #echo "${{ toJSON(github) }}"
           echo "PR NUM: $PR_NUM"
           echo "PR TITLE: ${PR_TITLE#*.}"
-          echo "PR URL: ${{github.event.repository.pulls_url}} $PR_NUM"
+          echo "PR URL: https://github.com/${{ github.repository }}/$PR_NUM"
