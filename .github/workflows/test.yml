@@ -7,7 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
+      - name: Find Current Pull Request
+        uses: jwalton/gh-find-current-pr@v1.0.2
+        id: PR
       - name: Run tests
+        env:
+          PR_TITLE: ${{ steps.PR.outputs.title }}
+          PR_NUM: ${{ steps.PR.outputs.number }}
         run: |
-          echo ${{ toJSON(github) }}
+          echo "${{ toJSON(github) }}"
+          echo "PR NUM: $PR_NUM"
+          echo "PR TITLE: ${PR_TITLE#*.}"
+          echo "PR URL: ${{github.event.repository.pulls_url}} $PR_NUM"
