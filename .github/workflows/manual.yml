@@ -9,7 +9,7 @@ on:
         default: "This is a test"
 
 env:
-  MSG: ${{ github.event.inputs.msg || "wzup" }}
+  MSG: ${{ github.event.inputs.msg || 'wzup' }}
   #INPUT_MSG: 
 
 jobs:
