@@ -1,6 +1,7 @@
 name: Manual workflow
 
 on:
+  push: {}
   workflow_dispatch:
     inputs:
       msg:
@@ -19,4 +20,4 @@ jobs:
     - name: Echo
       run: |
         MSG=${INPUT_MSG:-$MSG}
-        echo "Hello $MSG"
+        echo "$MSG"
