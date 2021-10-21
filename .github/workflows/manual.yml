@@ -6,6 +6,7 @@ on:
     inputs:
       msg:
         description: 'A message to echo'
+        default: "This is a test"
 
 env:
   MSG: wzup
