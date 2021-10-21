@@ -10,7 +10,6 @@ on:
 
 env:
   MSG: ${{ github.event.inputs.msg || 'wzup' }}
-  #INPUT_MSG: 
 
 jobs:
   greet:
@@ -20,5 +19,4 @@ jobs:
     - uses: actions/checkout@v2
     - name: Echo
       run: |
-        #MSG=${INPUT_MSG:-$MSG}
         echo "$MSG"
